@@ -172,6 +172,7 @@ static int oxnas_stdclk_probe(struct platform_device *pdev)
 
 static const struct of_device_id oxnas_stdclk_dt_ids[] = {
 	{ .compatible = "oxsemi,ox810se-stdclk" },
+	{ .compatible = "oxsemi,ox820-stdclk" },
 	{ }
 };
 
