@@ -82,6 +82,16 @@
 		ranges;
 		interrupt-parent = <&gic>;
 
+		nand: nand-controller@41000000 {
+			compatible = "oxsemi,ox820-nand";
+			reg = <0x41000000 0x100000>;
+			clocks = <&stdclk CLK_820_NAND>;
+			resets = <&reset RESET_NAND>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "disabled";
+		};
+
 		apb-bridge@44000000 {
 			#address-cells = <1>;
 			#size-cells = <1>;
@@ -129,6 +139,16 @@
 				pinctrl_etha_mdio: etha_mdio {
 					etha_mdio {
 						pins = "gpio3", "gpio4";
+						function = "fct1";
+					};
+				};
+
+				pinctrl_nand: nand {
+					nand {
+						pins = "gpio12", "gpio13", "gpio14", "gpio15",
+						     "gpio16", "gpio17", "gpio18", "gpio19",
+						     "gpio20", "gpio21", "gpio22", "gpio23",
+						     "gpio24";
 						function = "fct1";
 					};
 				};

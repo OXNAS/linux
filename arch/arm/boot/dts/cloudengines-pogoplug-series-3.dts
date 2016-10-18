@@ -58,3 +58,29 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_uart0>;
 };
+
+&nand {
+	status = "okay";
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_nand>;
+
+	nand@0 {
+		reg = <0>;
+		#address-cells = <1>;
+		#size-cells = <1>;
+		nand-ecc-mode = "soft";
+		nand-ecc-algo = "hamming";
+
+		partition@0 {
+			label = "boot";
+			reg = <0x00000000 0x00e00000>;
+			read-only;
+		};
+
+		partition@e00000 {
+			label = "ubi";
+			reg = <0x00e00000 0x07200000>;
+		};
+	};
+};
