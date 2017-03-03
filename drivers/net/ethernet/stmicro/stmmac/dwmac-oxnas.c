@@ -79,28 +79,34 @@ static int oxnas_dwmac_init(struct oxnas_dwmac *dwmac)
 		clk_disable_unprepare(dwmac->clk);
 		return ret;
 	}
-
 	/* Enable GMII_GTXCLK to follow GMII_REFCLK, required for gigabit PHY */
 	value |= BIT(DWMAC_CKEN_GTX)		|
 		 /* Use simple mux for 25/125 Mhz clock switching */
-		 BIT(DWMAC_SIMPLE_MUX)		|
-		 /* set auto switch tx clock source */
-		 BIT(DWMAC_AUTO_TX_SOURCE)	|
-		 /* enable tx & rx vardelay */
-		 BIT(DWMAC_CKEN_TX_OUT)		|
-		 BIT(DWMAC_CKEN_TXN_OUT)	|
-		 BIT(DWMAC_CKEN_TX_IN)		|
-		 BIT(DWMAC_CKEN_RX_OUT)		|
-		 BIT(DWMAC_CKEN_RXN_OUT)	|
-		 BIT(DWMAC_CKEN_RX_IN);
-	regmap_write(dwmac->regmap, OXNAS_DWMAC_CTRL_REGOFFSET, value);
+		 BIT(DWMAC_SIMPLE_MUX);
 
-	/* set tx & rx vardelay */
-	value = DWMAC_TX_VARDELAY(4)	|
-		DWMAC_TXN_VARDELAY(2)	|
-		DWMAC_RX_VARDELAY(10)	|
-		DWMAC_RXN_VARDELAY(8);
-	regmap_write(dwmac->regmap, OXNAS_DWMAC_DELAY_REGOFFSET, value);
+	if (of_device_is_compatible(dwmac->dev->of_node,
+				    "oxsemi,ox810se-dwmac"))
+		regmap_write(dwmac->regmap, OXNAS_DWMAC_CTRL_REGOFFSET, value);
+	else if (of_device_is_compatible(dwmac->dev->of_node,
+					 "oxsemi,ox820-dwmac")) {
+		/* set auto switch tx clock source */
+		value |= BIT(DWMAC_AUTO_TX_SOURCE)	|
+			 /* enable tx & rx vardelay */
+			 BIT(DWMAC_CKEN_TX_OUT)		|
+			 BIT(DWMAC_CKEN_TXN_OUT)	|
+			 BIT(DWMAC_CKEN_TX_IN)		|
+			 BIT(DWMAC_CKEN_RX_OUT)		|
+			 BIT(DWMAC_CKEN_RXN_OUT)	|
+			 BIT(DWMAC_CKEN_RX_IN);
+		regmap_write(dwmac->regmap, OXNAS_DWMAC_CTRL_REGOFFSET, value);
+
+		/* set tx & rx vardelay */
+		value = DWMAC_TX_VARDELAY(4)	|
+			DWMAC_TXN_VARDELAY(2)	|
+			DWMAC_RX_VARDELAY(10)	|
+			DWMAC_RXN_VARDELAY(8);
+		regmap_write(dwmac->regmap, OXNAS_DWMAC_DELAY_REGOFFSET, value);
+	}
 
 	return 0;
 }
@@ -197,6 +203,7 @@ static SIMPLE_DEV_PM_OPS(oxnas_dwmac_pm_ops,
 
 static const struct of_device_id oxnas_dwmac_match[] = {
 	{ .compatible = "oxsemi,ox820-dwmac" },
+	{ .compatible = "oxsemi,ox810se-dwmac" },
 	{ }
 };
 MODULE_DEVICE_TABLE(of, oxnas_dwmac_match);
