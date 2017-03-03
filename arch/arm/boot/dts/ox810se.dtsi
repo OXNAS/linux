@@ -78,6 +78,24 @@
 		ranges;
 		interrupt-parent = <&intc>;
 
+		usb: usb@40200000 {
+			compatible = "oxsemi,ox810se-ehci";
+			reg = <0x40200000 0x200000>;
+			interrupts = <7>;
+			clocks = <&stdclk 5>;
+			clock-names = "usb";
+			resets = <&reset 4>, <&reset 5>;
+			reset-names = "host", "phy";
+			status = "disabled";
+
+			oxsemi,input-pol-invert;
+			oxsemi,output-pol-invert;
+			oxsemi,patch-detect;
+
+			/* Regmap for sys registers */
+			oxsemi,sys-ctrl = <&sys>;
+		};
+
 		apb-bridge@44000000 {
 			#address-cells = <1>;
 			#size-cells = <1>;
@@ -201,6 +219,34 @@
 					uart2h {
 						pins = "gpio5";
 						function = "fct3";
+					};
+				};
+
+				pinctrl_usb_clko: usb_clko {
+					clko {
+						pins = "gpio10";
+						function = "fct2";
+					};
+				};
+
+				pinctrl_usb_porta: usb_porta {
+					porta {
+						pins = "gpio23", "gpio24";
+						function = "fct1";
+					};
+				};
+
+				pinctrl_usb_portb: usb_portb {
+					portb {
+						pins = "gpio25", "gpio26";
+						function = "fct1";
+					};
+				};
+
+				pinctrl_usb_portc: usb_portc {
+					portc {
+						pins = "gpio27", "gpio28";
+						function = "fct1";
 					};
 				};
 			};
