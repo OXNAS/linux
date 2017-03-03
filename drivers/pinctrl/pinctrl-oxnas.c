@@ -147,6 +147,15 @@ static const char * const oxnas_fct0_group[] = {
 	"gpio32", "gpio33", "gpio34"
 };
 
+static const char * const oxnas_fct1_group[] = {
+	"gpio23", "gpio24", "gpio25", "gpio26", 
+	"gpio27", "gpio28",
+};
+
+static const char * const oxnas_fct2_group[] = {
+	"gpio10",
+};
+
 static const char * const oxnas_fct3_group[] = {
 	"gpio0",  "gpio1",  "gpio2",  "gpio3",
 	"gpio4",  "gpio5",  "gpio6",  "gpio7",
@@ -167,6 +176,8 @@ static const char * const oxnas_fct3_group[] = {
 
 static const struct oxnas_function oxnas_functions[] = {
 	FUNCTION(gpio, fct0),
+	FUNCTION(fct1, fct1),
+	FUNCTION(fct2, fct2),
 	FUNCTION(fct3, fct3),
 };
 
@@ -217,7 +228,8 @@ static const struct oxnas_pin_group oxnas_groups[] = {
 			OXNAS_PINCTRL_FUNCTION(gpio, 0),
 			OXNAS_PINCTRL_FUNCTION(fct3, 3)),
 	OXNAS_PINCTRL_GROUP(10, gpio10,
-			OXNAS_PINCTRL_FUNCTION(gpio, 0)),
+			OXNAS_PINCTRL_FUNCTION(gpio, 0),
+			OXNAS_PINCTRL_FUNCTION(fct2, 2)),
 	OXNAS_PINCTRL_GROUP(11, gpio11,
 			OXNAS_PINCTRL_FUNCTION(gpio, 0)),
 	OXNAS_PINCTRL_GROUP(12, gpio12,
@@ -246,21 +258,27 @@ static const struct oxnas_pin_group oxnas_groups[] = {
 			OXNAS_PINCTRL_FUNCTION(fct3, 3)),
 	OXNAS_PINCTRL_GROUP(23, gpio23,
 			OXNAS_PINCTRL_FUNCTION(gpio, 0),
+			OXNAS_PINCTRL_FUNCTION(fct1, 1),
 			OXNAS_PINCTRL_FUNCTION(fct3, 3)),
 	OXNAS_PINCTRL_GROUP(24, gpio24,
 			OXNAS_PINCTRL_FUNCTION(gpio, 0),
+			OXNAS_PINCTRL_FUNCTION(fct1, 1),
 			OXNAS_PINCTRL_FUNCTION(fct3, 3)),
 	OXNAS_PINCTRL_GROUP(25, gpio25,
 			OXNAS_PINCTRL_FUNCTION(gpio, 0),
+			OXNAS_PINCTRL_FUNCTION(fct1, 1),
 			OXNAS_PINCTRL_FUNCTION(fct3, 3)),
 	OXNAS_PINCTRL_GROUP(26, gpio26,
 			OXNAS_PINCTRL_FUNCTION(gpio, 0),
+			OXNAS_PINCTRL_FUNCTION(fct1, 1),
 			OXNAS_PINCTRL_FUNCTION(fct3, 3)),
 	OXNAS_PINCTRL_GROUP(27, gpio27,
 			OXNAS_PINCTRL_FUNCTION(gpio, 0),
+			OXNAS_PINCTRL_FUNCTION(fct1, 1),
 			OXNAS_PINCTRL_FUNCTION(fct3, 3)),
 	OXNAS_PINCTRL_GROUP(28, gpio28,
 			OXNAS_PINCTRL_FUNCTION(gpio, 0),
+			OXNAS_PINCTRL_FUNCTION(fct1, 1),
 			OXNAS_PINCTRL_FUNCTION(fct3, 3)),
 	OXNAS_PINCTRL_GROUP(29, gpio29,
 			OXNAS_PINCTRL_FUNCTION(gpio, 0),
